@@ -72,6 +72,8 @@
 		| { type: 'editSmartPlaylist'; playlist: Playlist }
 		// Device modals
 		| { type: 'reformatDevice'; device: UsbDevice }
+		// Info modals
+		| { type: 'keyboardShortcuts' }
 
 	// Move resolution result type
 	export type MoveResult = {
@@ -91,6 +93,7 @@
 	import { RelocateTrackModal } from '$lib/components/library'
 	import { SmartPlaylistModal } from '$lib/components/playlists'
 	import { ExportModal, ExportFailureModal, QuickExportModal } from '$lib/components/export'
+	import KeyboardShortcutsModal from './KeyboardShortcutsModal.svelte'
 	import { toastStore } from '$lib/stores/toast'
 	import { resolveDuplicate } from '$lib/api/library'
 	import { parseSmartRules } from '$lib/utils/smartRules'
@@ -362,6 +365,11 @@
 	// Device modals
 	export function openReformatDeviceModal(device: UsbDevice) {
 		activeModal = { type: 'reformatDevice', device }
+	}
+
+	// Info modals
+	export function openKeyboardShortcutsModal() {
+		activeModal = { type: 'keyboardShortcuts' }
 	}
 
 	// =========================================================================
@@ -1069,4 +1077,9 @@
 		onSubmit={handleReformatDeviceSubmit}
 		onClose={closeAll}
 	/>
+{/if}
+
+<!-- Keyboard Shortcuts Modal -->
+{#if activeModal.type === 'keyboardShortcuts'}
+	<KeyboardShortcutsModal open={true} onClose={closeAll} />
 {/if}

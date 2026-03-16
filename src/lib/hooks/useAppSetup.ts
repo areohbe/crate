@@ -98,6 +98,7 @@ interface ModalOrchestratorRef {
 	openExportPlaylistModal: (playlist: Playlist) => void
 	openQuickExportModal: () => void
 	openExportFailureModal: (error: string, deviceId: string, mountPoint: string, filesCopied: number) => void
+	openKeyboardShortcutsModal: () => void
 }
 
 export interface AppSetupResult {
@@ -601,6 +602,7 @@ export function createAppSetup(config: AppSetupConfig): AppSetupResult {
 			onToggleView: handlers.toggleView,
 			onAddRelease: handlers.addRelease,
 			onRefreshMetadata: handlers.refreshMetadata,
+			onShowKeyboardShortcuts: () => getModalOrchestrator()?.openKeyboardShortcutsModal(),
 		})
 
 		const cleanupMenu = await useMenuActions({
